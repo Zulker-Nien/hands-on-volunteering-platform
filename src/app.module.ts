@@ -6,13 +6,14 @@ import databaseConfig from './config/database.config';
 import appConfig from './config/app.config';
 import enviromentValidation from './config/enviroment.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './users/users.module';
 const ENV = process.env.NODE_ENV;
 
 @Module({
   imports: [
+    UsersModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      // envFilePath: ['.env.development', '.env'],
       envFilePath: !ENV ? '.env' : `.env.${ENV}`,
       load: [appConfig, databaseConfig],
       validationSchema: enviromentValidation,
